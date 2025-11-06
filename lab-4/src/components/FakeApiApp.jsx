@@ -17,23 +17,23 @@ export default function FakeApiApp() {
 	const addPost = (sender) => {
 		sender.preventDefault();
 		if (form.title != emptyForm.title && form.body != emptyForm.body) {
-			setPosts([
+			setPosts((prevPosts) => [
+				...prevPosts,
 				{
 					userId: 11,
-					id: posts.length + 1,
+					id: prevPosts[prevPosts.length - 1].id + 1,
 					...form,
 				},
-				...posts,
 			]);
 			setForm(emptyForm);
 		} else alert("Please enter a title and/ or body");
 	};
 
 	const updateForm = (sender) => {
-		setForm({
-			...form,
+		setForm((prevForm) => ({
+			...prevForm,
 			[sender.target.name]: sender.target.value,
-		});
+		}));
 	};
 
 	// effect
